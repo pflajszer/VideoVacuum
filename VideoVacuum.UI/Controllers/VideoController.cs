@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,20 @@ namespace VideoVacuum.UI.Controllers
     [Route("api/[controller]/[action]")]
     public class VideoController : ControllerBase
     {
-        private readonly IVideoDownloader _downloader;
-        private readonly IVideoConverter _converter;
-		public VideoController(IVideoDownloader downloader, IVideoConverter converter)
+
+        private readonly IWebHostEnvironment _env;
+        private readonly IYouTubeService _yt;
+
+		public string BasePath { get; set; }
+		public VideoController(IYouTubeService yt, IWebHostEnvironment env)
 		{
-            _downloader = downloader;
-            _converter = converter;
+            _env = env;
+            _yt = yt;
+            BasePath = _env.WebRootPath;
 		}
-        public async Task<VideoViewModel> DownloadVideo(string address)
+        public async Task<VideoViewModel> DownloadVideoMetadata(string videoAddress)
 		{
-            var video = await _downloader.Download(address);
-            var model = await _converter.Convert(video);
+            var model = await _yt.GetVideoMetadata(videoAddress);
             return model;
 		}
     }

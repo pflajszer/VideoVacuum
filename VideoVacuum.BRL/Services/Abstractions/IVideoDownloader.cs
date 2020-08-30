@@ -5,6 +5,7 @@ namespace VideoVacuum.BRL.Services.Abstractions
 {
 	public interface IVideoDownloader
 	{
-		Task<Video> Download(string address);
+		Task<Video> DownloadMetadata(string address);
+		Task<Video> DownloadMp3(string basePath, string videoId);
 	}
 }
