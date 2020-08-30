@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,9 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VideoVacuum.BRL.AutomapperProfiles;
+using VideoVacuum.BRL.Services.Abstractions;
+using VideoVacuum.BRL.Services.Implementations;
 
 namespace VideoVacuum.UI
 {
@@ -21,11 +25,15 @@ namespace VideoVacuum.UI
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
+			services.AddAutoMapper(typeof(VideoProfile));
 			// In production, the Angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
+
+			services.AddScoped<IVideoConverter, VideoConverter>();
+			services.AddScoped<IVideoDownloader, VideoDownloader>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
