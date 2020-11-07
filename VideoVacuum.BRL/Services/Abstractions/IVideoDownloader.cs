@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using VideoVacuum.BRL.ViewModels;
 using YoutubeExplode.Videos;
 
 namespace VideoVacuum.BRL.Services.Abstractions
@@ -6,6 +7,6 @@ namespace VideoVacuum.BRL.Services.Abstractions
 	public interface IVideoDownloader
 	{
 		Task<Video> DownloadMetadata(string address);
-		Task<Video> DownloadMp3(string basePath, string videoId);
+		Task<VideoViewModel> DownloadMp3(VideoViewModel model, string basePath);
 	}
 }

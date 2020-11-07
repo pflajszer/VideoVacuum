@@ -25,10 +25,19 @@ namespace VideoVacuum.UI.Controllers
             _yt = yt;
             BasePath = _env.WebRootPath;
 		}
+
+        [HttpGet]
         public async Task<VideoViewModel> DownloadVideoMetadata(string videoAddress)
 		{
             var model = await _yt.GetVideoMetadata(videoAddress);
+            model = await _yt.DownloadMp3(model, BasePath);
             return model;
 		}
+
+        [HttpPost]
+        public async Task SetVideoMetadata(VideoViewModel model)
+        { 
+           _yt.SetVideoMetadata(model, BasePath);
+        }
     }
 }
