@@ -36,10 +36,11 @@ namespace VideoVacuum.BRL.Services.Implementation
 
 		public void SetVideoMetadata(VideoViewModel model, string basePath)
 		{
-			var filePath = Path.Combine(basePath, model.FileName);
+			//string filePath = "C:\\Users\\PawelFlajszer\\source\\repos\\VideoVacuum\\VideoVacuum.UI\\wwwroot\\Just Josh - Dell Inspiron 14 7400 Review - 14.5 inch Display at 2560x1600 Resolution for $800 - YES PLEASE!!_a5426576-821c-4221-a53e-d4ccf5c182d0.mp3";
+			var filePath = Path.Combine(basePath, model.MP3FileName);
 			var tfile = TagLib.File.Create(filePath);
 			tfile.Tag.Performers = new[] { model.Author };
-			tfile.Tag.Title = "asdsadsadas";
+			tfile.Tag.Title = model.Title;
 			//tfile.Tag.Title = model.Title;
 			//tfile.Tag.Year = (uint)tags.Year;
 			//if (tags.Artists != null)

@@ -56,7 +56,7 @@ namespace VideoVacuum.UI
 				app.UseHsts();
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			if (!env.IsDevelopment())
 			{

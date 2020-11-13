@@ -13,4 +13,5 @@ export interface VideoViewModel {
   likeCount: number;
   dislikeCount: number;
   averageRating: number;
+  mP3FileName: string;
 }

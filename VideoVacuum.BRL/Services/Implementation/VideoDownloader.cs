@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
@@ -43,15 +44,49 @@ namespace VideoVacuum.BRL.Services.Implementations
 				var streamInfo = streamManifest.GetAudioOnly().WithHighestBitrate();
 				// Combine them into a collection
 				var streamInfos = new IStreamInfo[] { streamInfo };
-				var fileName = $"{model.Author} - {model.Title}_{Guid.NewGuid()}.mp3";
-				model.FileName = ReplaceInvalidChars(fileName);
-				var filepath = Path.Combine(basePath, model.FileName);
+				var fileName = $"{model.Author} - {model.Title}_{Guid.NewGuid()}.{streamInfo.Container}";
+				model.OriginalFileName = ReplaceInvalidChars(fileName);
+				var filepath = Path.Combine(basePath, model.OriginalFileName);
 				//await converter.DownloadAndProcessMediaStreamsAsync(streamInfos, filepath, "mp3");
 				await _youtubeDownloader.Videos.Streams.DownloadAsync(streamInfo, filepath);
+				//await _youtubeDownloader.Videos.DownloadAsync((streamInfos, new ConversionRequestBuilder("audio.mp3").Build());
+				//var proc = new Process();
+				//proc.StartInfo.FileName = Path.Combine(basePath, "ffmpeg.exe");
+				////proc.StartInfo.Arguments = $"-i {filepath} -vn -f mp3 -ab 192k {Path.Combine(basePath, "output.mp3")}";
+				//proc.StartInfo.Arguments = $"-i {filepath} -vn -ar 44100 -ac 2 -ab 192k -f mp3 {Path.Combine(basePath, "output.mp3")}";
+				//proc.StartInfo.RedirectStandardError = true;
+				//proc.StartInfo.UseShellExecute = false;
+				//if (!proc.Start())
+				//{
+				//	Console.WriteLine("Error starting");
+				//}
+				//StreamReader reader = proc.StandardError;
+				//string line;
+				//while ((line = reader.ReadLine()) != null)
+				//{
+				//	Console.WriteLine(line);
+				//}
+				//proc.Close();
+
+				using (Process p = new Process())
+				{
+					p.StartInfo.UseShellExecute = false;
+					p.StartInfo.CreateNoWindow = true;
+					p.StartInfo.RedirectStandardOutput = true;
+					p.StartInfo.FileName = Path.Combine(basePath, "ffmpeg.exe");
+					var mp3fileName = $"{model.Author} - {model.Title}_{Guid.NewGuid()}.mp3";
+					p.StartInfo.Arguments = $"-i \"{filepath}\" -vn -ar 44100 -ac 2 -ab 192k -f mp3 \"{Path.Combine(basePath, mp3fileName)}\"";
+					p.Start();
+					p.WaitForExit();
+					model.MP3FileName = mp3fileName;
+					var result = p.StandardOutput.ReadToEnd();
+				} 
+
+
 				return model;
 			}
 			catch (Exception ex)
-			{
+				{
 				throw ex;
 			}
 		}

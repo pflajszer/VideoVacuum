@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +40,41 @@ namespace VideoVacuum.UI.Controllers
         public async Task SetVideoMetadata(VideoViewModel model)
         { 
            _yt.SetVideoMetadata(model, BasePath);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadFile(string filename)
+        {
+            var path = @"C:\Users\PawelFlajszer\source\repos\VideoVacuum\VideoVacuum.UI\wwwroot";
+            var filepath = Path.Combine(path, filename);
+            try
+            {
+                string file = @"c:\temp\test.mp3";
+
+                var memory = new MemoryStream();
+                using (var stream = new FileStream(filepath, FileMode.Open))
+                {
+                    await stream.CopyToAsync(memory);
+                }
+
+                memory.Position = 0;
+                return File(memory, GetMimeType(filepath), filename);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        private string GetMimeType(string fileName)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            string contentType;
+            if (!provider.TryGetContentType(fileName, out contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+            return contentType;
         }
     }
 }

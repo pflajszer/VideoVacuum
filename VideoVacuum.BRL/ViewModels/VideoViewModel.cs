@@ -25,7 +25,7 @@ namespace VideoVacuum.BRL.ViewModels
 		public long DislikeCount { get; set; }
 		public long AverageRating { get; set; }
 
-		public string FileName { get; set; }
-
+		public string OriginalFileName { get; set; }
+		public string MP3FileName { get; set; }
 	}
 }

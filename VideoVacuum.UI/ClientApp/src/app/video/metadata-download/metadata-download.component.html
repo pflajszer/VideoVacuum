@@ -6,7 +6,7 @@
         <mat-label>Enter YouTube video address</mat-label>
         <input matInput formControlName="videoUrl" placeholder="ex. https://www.youtube.com/watch?v=6czpapfDu-c">
       </mat-form-field>
-      <input type="submit">
+      <input type="submit" value="Download metadata">
     </form>
   </div>
 </div>
@@ -44,7 +44,15 @@
         <mat-label>Enter Author</mat-label>
         <input matInput formControlName="author" placeholder="input the author">
       </mat-form-field>
-      <input type="submit">
+      <mat-form-field appearance="fill" [style.width.%]="100" [floatLabel]="floatLabelControl.value">
+        <mat-label>Enter Title</mat-label>
+        <input matInput formControlName="title" placeholder="input the title">
+      </mat-form-field>
+      <input type="submit" value="Set Metadata">
     </form>
   </div>
+</div>
+
+<div *ngIf="video">
+  <button (click)="getMp3()">Download Mp3</button>
 </div>
