@@ -21,6 +21,7 @@ namespace VideoVacuum.BRL.AutomapperProfiles
 				.ForMember(dest => dest.ChannelId, x => x.MapFrom(src => src.ChannelId.Value))
 				.ForMember(dest => dest.VideoId, x => x.MapFrom(src => src.Id.Value))
 				.ForMember(dest => dest.Keywords, x => x.MapFrom(src => src.Keywords))
+				.ForMember(dest => dest.ThumbnailUrl, x => x.MapFrom(src => src.Thumbnails.StandardResUrl))
 				.ReverseMap();
 		}
     }

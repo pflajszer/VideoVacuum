@@ -9,7 +9,7 @@ namespace VideoVacuum.BRL.Tests.Services
 		private IVideoConverter _sut;
 		public VideoConverterTests()
 		{
-			_sut = new VideoConverter();
+			//_sut = new VideoConverter();
 		}
 
 		[Fact]
