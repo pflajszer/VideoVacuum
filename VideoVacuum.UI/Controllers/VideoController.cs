@@ -45,11 +45,11 @@ namespace VideoVacuum.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> DownloadFile(string filename)
         {
-            var path = @"C:\Users\PawelFlajszer\source\repos\VideoVacuum\VideoVacuum.UI\wwwroot";
-            var filepath = Path.Combine(path, filename);
+            //var path = @"C:\Users\PawelFlajszer\source\repos\VideoVacuum\VideoVacuum.UI\wwwroot";
+            var filepath = Path.Combine(BasePath, filename);
             try
             {
-                string file = @"c:\temp\test.mp3";
+                //string file = @"c:\temp\test.mp3";
 
                 var memory = new MemoryStream();
                 using (var stream = new FileStream(filepath, FileMode.Open))
