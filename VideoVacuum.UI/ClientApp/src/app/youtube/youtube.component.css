@@ -1,0 +1,15 @@
+#getMetadataForm, #setMetadataForm, #getMp3Btn {
+    margin: 5rem 1rem;
+}
+
+mat-progress-spinner {
+  margin: 0 auto;
+}
+
+#vid-card {
+  max-width: 400px;
+}
+
+#vid-thumb {
+  height: 20%;
+}

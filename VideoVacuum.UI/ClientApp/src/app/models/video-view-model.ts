@@ -1,4 +1,4 @@
-export interface VideoViewModel {
+export interface YoutubeVideoViewModel {
   videoId: string;
   title: string;
   url: string;

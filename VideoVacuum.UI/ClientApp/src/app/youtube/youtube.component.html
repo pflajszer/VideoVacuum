@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-12">
+        <div *ngIf="!video" class="row justify-content-center">
+            <div class="col-md-6">
+                <div id="getMetadataForm">
+                    <form [formGroup]="getMetadataForm"  (ngSubmit)="onSubmitGetMetadata()">
+                        <mat-form-field appearance="fill" [style.width.%]="100" [floatLabel]="floatLabelControl.value">
+                            <mat-label>Enter YouTube video address</mat-label>
+                            <input matInput formControlName="videoUrl" placeholder="ex. https://www.youtube.com/watch?v=6czpapfDu-c">
+                        </mat-form-field>
+                        <!-- <button type="submit" class="btn btn-primary btn-block" value="Find video">Find Video</button> -->
+                        <button mat-raised-button color="primary" class="btn-block">Find Video</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p id="spinner" *ngIf="loading"><em><mat-progress-spinner mode="indeterminate" value='66' color="primary"></mat-progress-spinner></em></p>
+            </div>
+        </div>
+        <div>
+          <div class="row justify-content-center align-content-center" *ngIf="video">
+            <div class="col-md-4">
+
+              <mat-card id="vid-card">
+                <mat-card-header>
+                  <div mat-card-avatar>
+
+                  </div>
+                  <mat-card-title>{{video.author}}</mat-card-title>
+                  <mat-card-subtitle>{{video.title}}</mat-card-subtitle>
+                </mat-card-header>
+                <img id="vid-thumb" mat-card-image src={{video.thumbnailUrl}} alt="thumbnail">
+                <mat-card-content>
+                  <p>
+                    {{video.description}}
+                  </p>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button>LIKE</button>
+                  <button mat-button>SHARE</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          
+            <div class="col-md-4">
+                <div id="setMetadataForm">
+                    <form [formGroup]="editMetadataForm" (ngSubmit)="onSubmitSetMetadata()">
+                        <mat-form-field appearance="fill" [style.width.%]="100" [floatLabel]="floatLabelControl.value">
+                          <mat-label>Enter Author</mat-label>
+                          <input matInput formControlName="author" placeholder="input the author" autocomplete="off">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" [style.width.%]="100" [floatLabel]="floatLabelControl.value">
+                          <mat-label>Enter Title</mat-label>
+                          <input matInput formControlName="title" placeholder="input the title"  autocomplete="off">
+                        </mat-form-field>
+                        <button class="btn btn-primary btn-block" type="submit" value="Set Metadata">Set Metadata</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+              <div *ngIf="video">
+                <div id="getMp3Btn">
+                  <button class="btn btn-primary btn-block" (click)="getMp3()">Download Mp3</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { VideoViewModel } from '../../models/video-view-model';
+import { YoutubeVideoViewModel } from '../../models/video-view-model';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class MetadataEditFormComponent implements OnInit {
   loading: boolean;
-  video: VideoViewModel;
+  video: YoutubeVideoViewModel;
   http: HttpClient;
   baseUrl: string;
 
@@ -26,7 +26,7 @@ export class MetadataEditFormComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     let videoUrl = this.options.value.videoUrl;
-    this.http.post<VideoViewModel>(this.baseUrl + 'api/Video/SetVideoMetadata', this.video).subscribe(result => {
+    this.http.post<YoutubeVideoViewModel>(this.baseUrl + 'api/Video/SetVideoMetadata', this.video).subscribe(result => {
       this.video = result;
       this.loading = false;
     }, error => console.error(error));

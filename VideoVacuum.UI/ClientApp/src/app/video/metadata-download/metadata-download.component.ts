@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { VideoViewModel } from '../../models/video-view-model';
+import { YoutubeVideoViewModel } from '../../models/video-view-model';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from 'file-saver';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class MetadataDownloadComponent implements OnInit {
   loading: boolean;
-  video: VideoViewModel;
+  video: YoutubeVideoViewModel;
   http: HttpClient;
   baseUrl: string = '';
   videoUrl: string = '';
@@ -49,7 +49,7 @@ export class MetadataDownloadComponent implements OnInit {
   onSubmitDownloadMetadata() {
     this.loading = true;
     let videoUrl = this.options.value.videoUrl;
-    this.http.get<VideoViewModel>(this.baseUrl + 'api/Video/DownloadVideoMetadata?videoAddress=' + videoUrl).subscribe(result => {
+    this.http.get<YoutubeVideoViewModel>(this.baseUrl + 'api/Video/DownloadVideoMetadata?videoAddress=' + videoUrl).subscribe(result => {
       this.video = result;
       this.loading = false;
       this.options2 = this.fb.group({
@@ -65,7 +65,7 @@ export class MetadataDownloadComponent implements OnInit {
     this.loading = true;
     this.video.author = form.value["author"];
     this.video.title = form.value["title"];
-    this.http.post<VideoViewModel>(this.baseUrl + 'api/Video/SetVideoMetadata', this.video).subscribe(result => {
+    this.http.post<YoutubeVideoViewModel>(this.baseUrl + 'api/Video/SetVideoMetadata', this.video).subscribe(result => {
       //this.video = result;
       this.loading = false;
     }, error => console.error(error));
