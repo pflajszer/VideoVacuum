@@ -92,11 +92,19 @@ export class YoutubeComponent implements OnInit {
   }
 
   getMp3() {
+    // show loading spinner
+    this.loading = true;
+
     var outputFileName = this.video.author + ' - ' + this.video.title + '.mp3';
     this.fileSvc.downloadF(this.video.mP3FileName)
       .subscribe(blob => {
+
+
         // save the file
         saveAs(blob, outputFileName);
+
+        // hide loading spinner
+        this.loading = false;
 
         // display success toast
         this.toastrSvc.success("Successfully downloaded the video");
