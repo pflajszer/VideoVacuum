@@ -17,3 +17,29 @@ code {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.animated-bg {
+  background: linear-gradient(271deg, #affce8, #bdfcaf, #fcd0af, #afd2fc);
+  background-size: 800% 800%;
+  -webkit-animation: AnimationName 32s ease infinite;
+  -moz-animation: AnimationName 32s ease infinite;
+  animation: AnimationName 32s ease infinite;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 52%}
+    50%{background-position:100% 49%}
+    100%{background-position:0% 52%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 52%}
+    50%{background-position:100% 49%}
+    100%{background-position:0% 52%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 52%}
+    50%{background-position:100% 49%}
+    100%{background-position:0% 52%}
+}

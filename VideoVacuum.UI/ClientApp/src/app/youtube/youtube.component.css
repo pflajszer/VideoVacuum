@@ -1,5 +1,5 @@
-#getMetadataForm, #setMetadataForm, #getMp3Btn {
-    margin: 5rem 1rem;
+#getMetadataForm, #setMetadataForm, #getMp3Btn, #vid-card {
+  margin: 3rem 1rem;
 }
 
 mat-progress-spinner {
