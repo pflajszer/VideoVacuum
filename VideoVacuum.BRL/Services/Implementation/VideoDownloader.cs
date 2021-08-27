@@ -41,7 +41,7 @@ namespace VideoVacuum.BRL.Services.Implementations
 				//var converter = new YoutubeConverter(_youtubeDownloader, Path.Combine(basePath, "ffmpeg.exe"));
 				//await converter.DownloadVideoAsync("4Bs2wOqFFck", $"video_{Guid.NewGuid()}.mp4");
 				var streamManifest = await _youtubeDownloader.Videos.Streams.GetManifestAsync(model.VideoId);
-				var streamInfo = streamManifest.GetAudioOnly().WithHighestBitrate();
+				var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
 				// Combine them into a collection
 				var streamInfos = new IStreamInfo[] { streamInfo };
 				var fileName = $"{model.Author} - {model.Title}_{Guid.NewGuid()}.{streamInfo.Container}";
