@@ -8,7 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VideoVacuum.BRL.AutomapperProfiles;
 using VideoVacuum.BRL.Services.Abstractions;
+using VideoVacuum.BRL.Services.Implementation;
 using VideoVacuum.BRL.Services.Implementations;
+using YoutubeExplode;
+using YoutubeExplode.Converter;
 
 namespace VideoVacuum.UI
 {
@@ -34,6 +37,9 @@ namespace VideoVacuum.UI
 
 			services.AddScoped<IVideoConverter, VideoConverter>();
 			services.AddScoped<IVideoDownloader, VideoDownloader>();
+			services.AddScoped<IYouTubeService, YouTubeService>();
+			services.AddScoped(ytExplode => new YoutubeClient());
+			//services.AddScoped(ytExplode => new YoutubeConverter());
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +56,7 @@ namespace VideoVacuum.UI
 				app.UseHsts();
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			if (!env.IsDevelopment())
 			{
